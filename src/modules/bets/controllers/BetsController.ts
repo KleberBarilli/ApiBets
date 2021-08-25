@@ -8,9 +8,9 @@ import DeleteBetService from '../services/DeleteBetService';
 export default class BetsController {
 	public async index(req: Request, res: Response): Promise<Response> {
 		const listBets = new ListBetsService();
-		const { user_bet_id } = req.params;
+		const { id } = req.params;
 
-		const bets = await listBets.execute(user_bet_id);
+		const bets = await listBets.execute(id);
 
 		return res.json(bets);
 	}

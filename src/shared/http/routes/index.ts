@@ -1,11 +1,8 @@
+import betsRouter from '@modules/bets/routes/bets.routes';
 import { Router } from 'express';
 
 const routes = Router();
 
-routes.get('/', (req, res) => {
-	return res.json({
-		message: 'Hello World',
-	});
-});
+routes.use('/bets', betsRouter);
 
 export default routes;
