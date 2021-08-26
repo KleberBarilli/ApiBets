@@ -1,6 +1,6 @@
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
-import BetRepository from '../typeorm/repositories/BetsRepository';
+import BetsRepository from '../typeorm/repositories/BetsRepository';
 import Bet from '../typeorm/entities/Bet';
 interface IBetRequest {
 	user_bet_id: string;
@@ -9,12 +9,12 @@ interface IBetRequest {
 	bet: string;
 	stake: number;
 	odd: number;
-	sport?: string;
-	tag?: string;
-	tipster?: string;
-	status?: string;
-	result?: number;
-	notes?: string;
+	sport: string;
+	tag: string;
+	tipster: string;
+	status: string;
+	result: number;
+	notes: string;
 }
 
 export default class CreateBetService {
@@ -33,7 +33,7 @@ export default class CreateBetService {
 		result,
 		notes,
 	}: IBetRequest): Promise<Bet> {
-		const betsRepositories = getCustomRepository(BetRepository);
+		const betsRepositories = getCustomRepository(BetsRepository);
 		//const userRepositories = getCustomRepository(UsersRepositories);
 
 		// const betAlreadyExists = await betsRepositories.findOne({})
