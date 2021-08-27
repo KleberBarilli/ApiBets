@@ -1,9 +1,13 @@
+import User from '../../../users/typeorm/entities/User';
 import {
 	Entity,
 	PrimaryGeneratedColumn,
 	Column,
 	UpdateDateColumn,
 	CreateDateColumn,
+	JoinColumn,
+	ManyToOne,
+	Generated,
 } from 'typeorm';
 
 @Entity('bets')
@@ -12,11 +16,12 @@ export default class Bet {
 	id: string;
 
 	@Column()
+	@Generated('uuid')
 	user_bet_id: string;
 
-	//@JoinColumn({ name: 'user_bet_id' })
-	//@ManyToOne(() => User)
-	//user_id: User;
+	@JoinColumn({ name: 'user_bet_id' })
+	@ManyToOne(() => User)
+	user_id: User;
 
 	@Column()
 	event: string;

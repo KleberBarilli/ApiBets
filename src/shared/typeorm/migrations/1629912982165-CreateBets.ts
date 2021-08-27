@@ -15,7 +15,7 @@ export class CreateBets1629912982165 implements MigrationInterface {
 					},
 					{
 						name: 'user_bet_id',
-						type: 'varchar',
+						type: 'uuid',
 					},
 					{
 						name: 'event',
@@ -73,6 +73,14 @@ export class CreateBets1629912982165 implements MigrationInterface {
 						name: 'updated_at',
 						type: 'timestamp with time zone',
 						default: 'now()',
+					},
+				],
+				foreignKeys: [
+					{
+						name: 'FKUser',
+						referencedTableName: 'users',
+						referencedColumnNames: ['id'],
+						columnNames: ['user_bet_id'],
 					},
 				],
 			}),
