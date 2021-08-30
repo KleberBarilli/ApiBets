@@ -2,6 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import BetsRepository from '../typeorm/repositories/BetsRepository';
 import Bet from '../typeorm/entities/Bet';
+import UsersRepository from '@modules/users/typeorm/repositories/UsersRepository';
 interface IBetRequest {
 	user_bet_id: string;
 	event: string;
@@ -34,11 +35,10 @@ export default class CreateBetService {
 		notes,
 	}: IBetRequest): Promise<Bet> {
 		const betsRepositories = getCustomRepository(BetsRepository);
-		//const userRepositories = getCustomRepository(UsersRepositories);
 
-		// const betAlreadyExists = await betsRepositories.findOne({})
-		//const user_id = await userRepositories.findOne(user_bet_id);
-		const user_id = 'kleber_4654ID';
+		const userRepositories = getCustomRepository(UsersRepository);
+
+		const user_id = await userRepositories.findOne(user_bet_id);
 
 		if (!user_id) {
 			throw new AppError('Error with user');
