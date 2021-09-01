@@ -10,7 +10,6 @@ export default class ListBetsService {
 			where: {
 				user_bet_id: user_id,
 			},
-			relations: ['users', 'bets'],
 		});
 
 		return bets;

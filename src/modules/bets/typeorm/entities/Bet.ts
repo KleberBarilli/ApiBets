@@ -19,9 +19,9 @@ export default class Bet {
 	@Generated('uuid')
 	user_bet_id: string;
 
-	@JoinColumn({ name: 'user_bet_id' })
 	@ManyToOne(() => User)
-	user_id: User;
+	@JoinColumn({ name: 'user_bet_id' })
+	user: User;
 
 	@Column()
 	event: string;
