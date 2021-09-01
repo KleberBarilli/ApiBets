@@ -16,6 +16,7 @@ interface IBetRequest {
 	status: string;
 	result: number;
 	notes: string;
+	date: Date;
 }
 
 export default class CreateBetService {
@@ -33,6 +34,7 @@ export default class CreateBetService {
 		status,
 		result,
 		notes,
+		date,
 	}: IBetRequest): Promise<Bet> {
 		const betsRepositories = getCustomRepository(BetsRepository);
 
@@ -57,6 +59,7 @@ export default class CreateBetService {
 			status,
 			result,
 			notes,
+			date,
 		});
 
 		await betsRepositories.save(selection);

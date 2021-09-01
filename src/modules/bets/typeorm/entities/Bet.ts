@@ -57,6 +57,9 @@ export default class Bet {
 	notes: string;
 
 	@CreateDateColumn()
+	date: Date;
+
+	@CreateDateColumn()
 	created_at: Date;
 
 	@UpdateDateColumn()

@@ -44,6 +44,7 @@ betsRouter.post(
 			status: Joi.string(),
 			result: Joi.number(),
 			notes: Joi.string(),
+			date: Joi.date(),
 		},
 	}),
 	betsController.create,
@@ -65,6 +66,7 @@ betsRouter.put(
 			status: Joi.string(),
 			result: Joi.number(),
 			notes: Joi.string(),
+			date: Joi.date(),
 		},
 		[Segments.PARAMS]: {
 			id: Joi.string().uuid().required(),

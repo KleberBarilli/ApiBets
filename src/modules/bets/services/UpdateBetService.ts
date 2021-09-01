@@ -17,6 +17,7 @@ interface IRequest {
 	status: string;
 	result: number;
 	notes: string;
+	date: Date;
 }
 
 export default class UpdateBetService {
@@ -34,6 +35,7 @@ export default class UpdateBetService {
 		status,
 		result,
 		notes,
+		date,
 	}: IRequest): Promise<Bet> {
 		const betsRepositories = getCustomRepository(BetsRepository);
 
@@ -55,6 +57,7 @@ export default class UpdateBetService {
 		selection.status = status;
 		selection.result = result;
 		selection.notes = notes;
+		selection.date = date;
 
 		await betsRepositories.save(selection);
 

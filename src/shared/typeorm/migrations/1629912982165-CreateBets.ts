@@ -40,10 +40,12 @@ export class CreateBets1629912982165 implements MigrationInterface {
 					{
 						name: 'sport',
 						type: 'varchar',
+						default: null,
 					},
 					{
 						name: 'tag',
 						type: 'varchar',
+						default: null,
 					},
 					{
 						name: 'tipster',
@@ -63,6 +65,12 @@ export class CreateBets1629912982165 implements MigrationInterface {
 					{
 						name: 'notes',
 						type: 'text',
+						default: null,
+					},
+					{
+						name: 'date',
+						type: 'timestamp with time zone',
+						default: 'now()',
 					},
 					{
 						name: 'created_at',

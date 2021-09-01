@@ -39,6 +39,7 @@ export default class BetsController {
 			status,
 			result,
 			notes,
+			date,
 		} = req.body;
 
 		const createBet = new CreateBetService();
@@ -56,6 +57,7 @@ export default class BetsController {
 			status,
 			result,
 			notes,
+			date,
 		});
 
 		return res.json(selection);
@@ -75,6 +77,7 @@ export default class BetsController {
 			status,
 			result,
 			notes,
+			date,
 		} = req.body;
 
 		const { id } = req.params;
@@ -95,6 +98,7 @@ export default class BetsController {
 			status,
 			result,
 			notes,
+			date,
 		});
 
 		return res.json(selection);
