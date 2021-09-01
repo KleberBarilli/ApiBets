@@ -19,10 +19,7 @@ export class CreateUserTokens1630021952327 implements MigrationInterface {
 						generationStrategy: 'uuid',
 						default: 'uuid_generate_v4()',
 					},
-					{
-						name: 'user_id',
-						type: 'uuid',
-					},
+
 					{
 						name: 'created_at',
 						type: 'timestamp with time zone',
@@ -32,16 +29,6 @@ export class CreateUserTokens1630021952327 implements MigrationInterface {
 						name: 'updated_at',
 						type: 'timestamp with time zone',
 						default: 'now()',
-					},
-				],
-				foreignKeys: [
-					{
-						name: 'TokenUserFK',
-						referencedTableName: 'users',
-						referencedColumnNames: ['id'],
-						columnNames: ['user_id'],
-						onDelete: 'CASCADE',
-						onUpdate: 'CASCADE',
 					},
 				],
 			}),

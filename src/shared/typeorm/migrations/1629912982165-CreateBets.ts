@@ -13,10 +13,7 @@ export class CreateBets1629912982165 implements MigrationInterface {
 						generationStrategy: 'uuid',
 						default: 'uuid_generate_v4()',
 					},
-					{
-						name: 'user_bet_id',
-						type: 'uuid',
-					},
+
 					{
 						name: 'event',
 						type: 'varchar',
@@ -81,14 +78,6 @@ export class CreateBets1629912982165 implements MigrationInterface {
 						name: 'updated_at',
 						type: 'timestamp with time zone',
 						default: 'now()',
-					},
-				],
-				foreignKeys: [
-					{
-						name: 'FKUser',
-						referencedTableName: 'users',
-						referencedColumnNames: ['id'],
-						columnNames: ['user_bet_id'],
 					},
 				],
 			}),
