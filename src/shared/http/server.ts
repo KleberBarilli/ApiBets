@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'dotenv/config';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
@@ -32,6 +33,6 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
 	});
 });
 
-app.listen(3333, () => {
-	console.log('Server On at 3333');
+app.listen(process.env.PORT, () => {
+	console.log(`Server On at ${process.env.PORT}`);
 });
