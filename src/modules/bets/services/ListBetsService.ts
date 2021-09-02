@@ -10,6 +10,9 @@ export default class ListBetsService {
 			where: {
 				user_bet_id: user_id,
 			},
+			order: {
+				date: 'DESC',
+			},
 		});
 
 		return bets;
