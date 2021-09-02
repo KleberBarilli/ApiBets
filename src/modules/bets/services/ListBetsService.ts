@@ -18,9 +18,7 @@ export default class ListBetsService {
 	async execute(user_id: string): Promise<IPaginateBets> {
 		const betsRepositories = getCustomRepository(BetsRepository);
 
-		//const redisCache = new RedisCache();
-
-		//let bets = await redisCache.recover<IPaginateBets>('user-bets');
+		//let bets = await RedisCache.recover<IPaginateBets>('user-bets');
 
 		//if (!bets) {
 		const bets = await betsRepositories
