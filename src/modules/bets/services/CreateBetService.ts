@@ -3,6 +3,7 @@ import { getCustomRepository } from 'typeorm';
 import BetsRepository from '../typeorm/repositories/BetsRepository';
 import Bet from '../typeorm/entities/Bet';
 import UsersRepository from '@modules/users/typeorm/repositories/UsersRepository';
+import RedisCache from '@shared/cache/RedisCache';
 interface IBetRequest {
 	user_bet_id: string;
 	event: string;
@@ -46,6 +47,8 @@ export default class CreateBetService {
 			throw new AppError('Error with user');
 		}
 
+		//const redisCache = new RedisCache();
+
 		const selection = betsRepositories.create({
 			user_bet_id,
 			event,
@@ -61,6 +64,8 @@ export default class CreateBetService {
 			notes,
 			date,
 		});
+
+		//await redisCache.invalidate('user-bets');
 
 		await betsRepositories.save(selection);
 
