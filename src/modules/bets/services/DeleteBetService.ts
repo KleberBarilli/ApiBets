@@ -17,9 +17,7 @@ export default class DeleteBetService {
 			throw new AppError('Bet Not found');
 		}
 
-		//const redisCache = new RedisCache();
-
-		//await redisCache.invalidate('user-bets');
+		await RedisCache.invalidate(`user-bets-${bet.user_bet_id}`);
 
 		await betsRepositories.remove(bet);
 	}

@@ -46,8 +46,7 @@ export default class UpdateBetService {
 			throw new AppError('Bet Not found');
 		}
 
-		//const redisCache = new RedisCache();
-		//await redisCache.invalidate('user-bets');
+		await RedisCache.invalidate(`user-bets-${user_bet_id}`);
 
 		selection.user_bet_id = user_bet_id;
 		selection.event = event;

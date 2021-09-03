@@ -47,8 +47,6 @@ export default class CreateBetService {
 			throw new AppError('Error with user');
 		}
 
-		//const redisCache = new RedisCache();
-
 		const selection = betsRepositories.create({
 			user_bet_id,
 			event,
@@ -65,7 +63,7 @@ export default class CreateBetService {
 			date,
 		});
 
-		//await redisCache.invalidate('user-bets');
+		await RedisCache.invalidate(`user-bets-${user_bet_id}`);
 
 		await betsRepositories.save(selection);
 
