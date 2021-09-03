@@ -1,6 +1,6 @@
 import { getCustomRepository } from 'typeorm';
-import Bet from '../typeorm/entities/Bet';
-import BetsRepository from '../typeorm/repositories/BetsRepository';
+import Bet from '../infra/typeorm/entities/Bet';
+import BetsRepository from '../infra/typeorm/repositories/BetsRepository';
 import RedisCache from '@shared/cache/RedisCache';
 
 interface IPaginateBets {

@@ -5,7 +5,7 @@ import 'express-async-errors';
 import cors from 'cors';
 import routes from './routes';
 import AppError from '@shared/errors/AppError';
-import '@shared/typeorm';
+import '@shared/infra/typeorm';
 import { errors } from 'celebrate';
 import { pagination } from 'typeorm-pagination';
 import uploadConfig from '@config/upload';

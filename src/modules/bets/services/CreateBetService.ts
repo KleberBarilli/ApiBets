@@ -1,8 +1,8 @@
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
-import BetsRepository from '../typeorm/repositories/BetsRepository';
-import Bet from '../typeorm/entities/Bet';
-import UsersRepository from '@modules/users/typeorm/repositories/UsersRepository';
+import BetsRepository from '../infra/typeorm/repositories/BetsRepository';
+import Bet from '../infra/typeorm/entities/Bet';
+import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 import RedisCache from '@shared/cache/RedisCache';
 interface IBetRequest {
 	user_bet_id: string;

@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import ShowBetService from '../services/ListBetService';
-import ListBetsService from '../services/ListBetsService';
-import CreateBetService from '../services/CreateBetService';
-import UpdateBetService from '../services/UpdateBetService';
-import DeleteBetService from '../services/DeleteBetService';
+import ShowBetService from '@modules/bets/services/ListBetService';
+import ListBetsService from '@modules/bets/services/ListBetsService';
+import CreateBetService from '@modules/bets/services/CreateBetService';
+import UpdateBetService from '@modules/bets/services/UpdateBetService';
+import DeleteBetService from '@modules/bets/services/DeleteBetService';
 
 export default class BetsController {
 	public async index(req: Request, res: Response): Promise<Response> {
