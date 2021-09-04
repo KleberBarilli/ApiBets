@@ -1,25 +1,23 @@
 import AppError from '@shared/errors/AppError';
 import { hash } from 'bcryptjs';
-import { getCustomRepository } from 'typeorm';
-import User from '../infra/typeorm/entities/User';
-import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
+import { injectable, inject } from 'tsyringe';
+import { ICreateUser } from '../domain/models/ICreateUser';
+import { IUser } from '../domain/models/IUser';
+import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 
-interface IUserRequest {
-	username: string;
-	email: string;
-	password: string;
-}
-
+@injectable()
 export default class CreateUserService {
+	constructor(
+		@inject('UsersRepository') private usersRepository: IUsersRepository,
+	) {}
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	public async execute({
 		username,
 		email,
 		password,
-	}: IUserRequest): Promise<User> {
-		const userRepositories = getCustomRepository(UsersRepository);
-		const usernameExists = await userRepositories.findByName(username);
-		const emailExists = await userRepositories.findByEmail(email);
+	}: ICreateUser): Promise<IUser> {
+		const usernameExists = await this.usersRepository.findByName(username);
+		const emailExists = await this.usersRepository.findByEmail(email);
 
 		if (usernameExists) {
 			throw new AppError('Username already exist');
@@ -30,13 +28,11 @@ export default class CreateUserService {
 
 		const hashedPassword = await hash(password, 8);
 
-		const user = userRepositories.create({
+		const user = await this.usersRepository.create({
 			username,
 			email,
 			password: hashedPassword,
 		});
-
-		await userRepositories.save(user);
 
 		return user;
 	}
