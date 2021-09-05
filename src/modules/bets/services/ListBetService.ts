@@ -1,17 +1,16 @@
 import AppError from '@shared/errors/AppError';
-import { getCustomRepository } from 'typeorm';
-import Bet from '../infra/typeorm/entities/Bet';
-import BetsRepository from '../infra/typeorm/repositories/BetsRepository';
+import { inject, injectable } from 'tsyringe';
+import { IBet } from '../domain/models/IBet';
+import { IShowBet } from '../domain/models/IShowBet';
+import { IBetsRepository } from '../domain/repositories/IBetsRepository';
 
-interface IRequest {
-	id: string;
-}
-
+@injectable()
 export default class ShowBetService {
-	async execute({ id }: IRequest): Promise<Bet | undefined> {
-		const betsRepositories = getCustomRepository(BetsRepository);
-
-		const bet = await betsRepositories.findOne(id);
+	constructor(
+		@inject('BetsRepository') private betsRepository: IBetsRepository,
+	) {}
+	async execute({ id }: IShowBet): Promise<IBet | undefined> {
+		const bet = await this.betsRepository.findById(id);
 
 		if (!bet) {
 			throw new AppError('Bet Not found');

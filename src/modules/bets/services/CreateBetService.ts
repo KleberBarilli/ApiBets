@@ -1,26 +1,18 @@
 import AppError from '@shared/errors/AppError';
+import { inject, injectable } from 'tsyringe';
 import { getCustomRepository } from 'typeorm';
-import BetsRepository from '../infra/typeorm/repositories/BetsRepository';
-import Bet from '../infra/typeorm/entities/Bet';
-import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
+import { IBetsRepository } from '../domain/repositories/IBetsRepository';
+import { ICreateBet } from '../domain/models/ICreateBet';
+import { IBet } from '../domain/models/IBet';
 import RedisCache from '@shared/cache/RedisCache';
-interface IBetRequest {
-	user_bet_id: string;
-	event: string;
-	bookie: string;
-	bet: string;
-	stake: number;
-	odd: number;
-	sport: string;
-	tag: string;
-	tipster: string;
-	status: string;
-	result: number;
-	notes: string;
-	date: Date;
-}
+import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
 
+@injectable()
 export default class CreateBetService {
+	constructor(
+		@inject('BetsRepository') private betsRepository: IBetsRepository,
+		@inject('UsersRepository') private usersRepository: IUsersRepository,
+	) {}
 	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 	public async execute({
 		user_bet_id,
@@ -36,18 +28,14 @@ export default class CreateBetService {
 		result,
 		notes,
 		date,
-	}: IBetRequest): Promise<Bet> {
-		const betsRepositories = getCustomRepository(BetsRepository);
-
-		const userRepositories = getCustomRepository(UsersRepository);
-
-		const user_id = await userRepositories.findOne(user_bet_id);
+	}: ICreateBet): Promise<IBet> {
+		const user_id = await this.usersRepository.findById(user_bet_id);
 
 		if (!user_id) {
 			throw new AppError('Error with user');
 		}
 
-		const selection = betsRepositories.create({
+		const wager = this.betsRepository.create({
 			user_bet_id,
 			event,
 			bookie,
@@ -65,8 +53,6 @@ export default class CreateBetService {
 
 		await RedisCache.invalidate(`user-bets-${user_bet_id}`);
 
-		await betsRepositories.save(selection);
-
-		return selection;
+		return wager;
 	}
 }

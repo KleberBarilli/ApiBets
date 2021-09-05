@@ -1,17 +1,16 @@
 import RedisCache from '@shared/cache/RedisCache';
+import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
-import { getCustomRepository } from 'typeorm';
-import BetsRepository from '../infra/typeorm/repositories/BetsRepository';
+import { IDeleteBet } from '../domain/models/IDeleteBet';
+import { IBetsRepository } from '../domain/repositories/IBetsRepository';
 
-interface IRequest {
-	id: string;
-}
-
+@injectable()
 export default class DeleteBetService {
-	async execute({ id }: IRequest): Promise<void> {
-		const betsRepositories = getCustomRepository(BetsRepository);
-
-		const bet = await betsRepositories.findOne(id);
+	constructor(
+		@inject('BetsRepository') private betsRepository: IBetsRepository,
+	) {}
+	async execute({ id }: IDeleteBet): Promise<void> {
+		const bet = await this.betsRepository.findById(id);
 
 		if (!bet) {
 			throw new AppError('Bet Not found');
@@ -19,6 +18,6 @@ export default class DeleteBetService {
 
 		await RedisCache.invalidate(`user-bets-${bet.user_bet_id}`);
 
-		await betsRepositories.remove(bet);
+		await this.betsRepository.remove(bet);
 	}
 }

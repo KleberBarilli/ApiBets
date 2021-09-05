@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 import ShowBetService from '@modules/bets/services/ListBetService';
 import ListBetsService from '@modules/bets/services/ListBetsService';
 import CreateBetService from '@modules/bets/services/CreateBetService';
@@ -7,7 +8,7 @@ import DeleteBetService from '@modules/bets/services/DeleteBetService';
 
 export default class BetsController {
 	public async index(req: Request, res: Response): Promise<Response> {
-		const listBets = new ListBetsService();
+		const listBets = container.resolve(ListBetsService);
 		const { id } = req.params;
 
 		const bets = await listBets.execute(id);
@@ -18,7 +19,7 @@ export default class BetsController {
 	public async show(req: Request, res: Response): Promise<Response> {
 		const { id } = req.params;
 
-		const showBet = new ShowBetService();
+		const showBet = container.resolve(ShowBetService);
 
 		const bet = await showBet.execute({ id });
 
@@ -42,7 +43,7 @@ export default class BetsController {
 			date,
 		} = req.body;
 
-		const createBet = new CreateBetService();
+		const createBet = container.resolve(CreateBetService);
 
 		const selection = await createBet.execute({
 			user_bet_id,
@@ -82,7 +83,7 @@ export default class BetsController {
 
 		const { id } = req.params;
 
-		const updateBet = new UpdateBetService();
+		const updateBet = container.resolve(UpdateBetService);
 
 		const selection = await updateBet.execute({
 			id,
@@ -107,7 +108,7 @@ export default class BetsController {
 	public async delete(req: Request, res: Response): Promise<Response> {
 		const { id } = req.params;
 
-		const deleteBet = new DeleteBetService();
+		const deleteBet = container.resolve(DeleteBetService);
 
 		await deleteBet.execute({ id });
 

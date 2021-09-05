@@ -1,41 +1,25 @@
-import { getCustomRepository } from 'typeorm';
-import Bet from '../infra/typeorm/entities/Bet';
+import { inject, injectable } from 'tsyringe';
 import BetsRepository from '../infra/typeorm/repositories/BetsRepository';
 import RedisCache from '@shared/cache/RedisCache';
+import { IPaginateBet } from '@modules/bets/domain/models/IPaginateBet';
 
-interface IPaginateBets {
-	from: number;
-	to: number;
-	per_page: number;
-	total: number;
-	current_page: number;
-	prev_page: number | null;
-	next_page: number | null;
-	data: Bet[];
-}
-
+@injectable()
 export default class ListBetsService {
-	async execute(user_id: string): Promise<IPaginateBets> {
-		const betsRepositories = getCustomRepository(BetsRepository);
+	constructor(
+		@inject('BetsRepository') private betsRepository: BetsRepository,
+	) {}
 
-		let bets = await RedisCache.recover<IPaginateBets>(
+	async execute(user_id: string): Promise<IPaginateBet | null> {
+		let bets = await RedisCache.recover<IPaginateBet>(
 			`user-bets-${user_id}`,
 		);
 
 		if (!bets) {
-			const bets = await betsRepositories
-				.createQueryBuilder()
-				.where({
-					user_bet_id: user_id,
-				})
-				.orderBy({
-					date: 'DESC',
-				})
-				.paginate();
+			const bets = await this.betsRepository.findAllPaginate(user_id);
 
 			await RedisCache.save(`user-bets-${user_id}`, bets);
 		}
 
-		return bets as IPaginateBets;
+		return bets;
 	}
 }

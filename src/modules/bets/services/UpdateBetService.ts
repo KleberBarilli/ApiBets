@@ -1,27 +1,15 @@
 import RedisCache from '@shared/cache/RedisCache';
+import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
-import { getCustomRepository } from 'typeorm';
-import Bet from '../infra/typeorm/entities/Bet';
-import BetsRepository from '../infra/typeorm/repositories/BetsRepository';
+import { IBet } from '../domain/models/IBet';
+import { IBetsRepository } from '../domain/repositories/IBetsRepository';
+import { IUpdateBet } from '../domain/models/IUpdateBet';
 
-interface IRequest {
-	id: string;
-	user_bet_id: string;
-	event: string;
-	bookie: string;
-	bet: string;
-	stake: number;
-	odd: number;
-	sport: string;
-	tag: string;
-	tipster: string;
-	status: string;
-	result: number;
-	notes: string;
-	date: Date;
-}
-
+@injectable()
 export default class UpdateBetService {
+	constructor(
+		@inject('BetsRepository') private betsRepository: IBetsRepository,
+	) {}
 	async execute({
 		id,
 		user_bet_id,
@@ -37,33 +25,31 @@ export default class UpdateBetService {
 		result,
 		notes,
 		date,
-	}: IRequest): Promise<Bet> {
-		const betsRepositories = getCustomRepository(BetsRepository);
+	}: IUpdateBet): Promise<IBet> {
+		const wager = await this.betsRepository.findById(id);
 
-		const selection = await betsRepositories.findOne(id);
-
-		if (!selection) {
+		if (!wager) {
 			throw new AppError('Bet Not found');
 		}
 
 		await RedisCache.invalidate(`user-bets-${user_bet_id}`);
 
-		selection.user_bet_id = user_bet_id;
-		selection.event = event;
-		selection.bookie = bookie;
-		selection.bet = bet;
-		selection.stake = stake;
-		selection.odd = odd;
-		selection.sport = sport;
-		selection.tag = tag;
-		selection.tipster = tipster;
-		selection.status = status;
-		selection.result = result;
-		selection.notes = notes;
-		selection.date = date;
+		wager.user_bet_id = user_bet_id;
+		wager.event = event;
+		wager.bookie = bookie;
+		wager.bet = bet;
+		wager.stake = stake;
+		wager.odd = odd;
+		wager.sport = sport;
+		wager.tag = tag;
+		wager.tipster = tipster;
+		wager.status = status;
+		wager.result = result;
+		wager.notes = notes;
+		wager.date = date;
 
-		await betsRepositories.save(selection);
+		await this.betsRepository.save(wager);
 
-		return selection;
+		return wager;
 	}
 }
