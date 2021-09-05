@@ -1,10 +1,8 @@
-import { getRepository, Repository, SelectQueryBuilder } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import { IPaginateBet } from '@modules/bets/domain/models/IPaginateBet';
 import { IBetsRepository } from '@modules/bets/domain/repositories/IBetsRepository';
 import { ICreateBet } from '@modules/bets/domain/models/ICreateBet';
-import RedisCache from '@shared/cache/RedisCache';
 import Bet from '../entities/Bet';
-import { IBet } from '@modules/bets/domain/models/IBet';
 
 export default class BetsRepository implements IBetsRepository {
 	private ormRepository: Repository<Bet>;

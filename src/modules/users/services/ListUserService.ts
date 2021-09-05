@@ -1,5 +1,4 @@
 import { injectable, inject } from 'tsyringe';
-import { IPaginateUser } from '../domain/models/IPaginateUser';
 import { IUser } from '../domain/models/IUser';
 import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 

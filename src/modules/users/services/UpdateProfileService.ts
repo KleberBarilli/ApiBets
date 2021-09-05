@@ -1,7 +1,6 @@
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 import { compare, hash } from 'bcryptjs';
-import { getCustomRepository } from 'typeorm';
 import { IUser } from '@modules/users/domain/models/IUser';
 import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
 

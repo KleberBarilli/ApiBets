@@ -2,22 +2,10 @@ import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import { getCustomRepository } from 'typeorm';
-import User from '@modules/users/infra/typeorm/entities/User';
 import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 import authConfig from '@config/auth';
 import { ICreateSession } from '../domain/models/ICreateSession';
 import { IUserAuthenticated } from '../domain/models/IUserAuthenticated';
-
-interface IUserRequest {
-	email: string;
-	password: string;
-}
-
-interface IResponse {
-	user: User;
-	token: string;
-}
 
 @injectable()
 export default class CreateSessionsService {
