@@ -3,8 +3,8 @@ import { IPaginateUser } from '../models/IPaginateUser';
 import { IUser } from '../models/IUser';
 
 export interface IUsersRepository {
-	findAll(): Promise<IUser[]>;
-	findAllPaginate(): Promise<IPaginateUser>;
+	findAll(): Promise<IUser[] | null>;
+	findAllPaginate(): Promise<IPaginateUser | null>;
 	findByName(username: string): Promise<IUser | undefined>;
 	findById(id: string): Promise<IUser | undefined>;
 	findByEmail(email: string): Promise<IUser | undefined>;
