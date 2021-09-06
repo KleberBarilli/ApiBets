@@ -65,7 +65,7 @@ export class CreateBets1630522676037 implements MigrationInterface {
 					{
 						name: 'status',
 						type: 'varchar',
-						default: 'PENDING',
+						default: `'PENDING'`,
 					},
 					{
 						name: 'result',
