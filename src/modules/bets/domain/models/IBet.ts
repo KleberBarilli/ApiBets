@@ -17,4 +17,5 @@ export interface IBet {
 	date: Date;
 	created_at: Date;
 	updated_at: Date;
+	getLeagueUrl(): string | null;
 }

@@ -20,7 +20,7 @@ export default class BetsRepository implements IBetsRepository {
 		return bet;
 	}
 
-	public async findAllPaginate(id: string): Promise<IPaginateBet | null> {
+	public async findAllPaginate(id: string): Promise<IPaginateBet> {
 		const bet = await this.ormRepository
 			.createQueryBuilder()
 			.where({
@@ -34,8 +34,15 @@ export default class BetsRepository implements IBetsRepository {
 		return bet as IPaginateBet;
 	}
 
-	public async findAll(): Promise<any | null> {
-		const bets = await this.ormRepository.find();
+	public async findAll(user_id: string): Promise<any> {
+		const bets = await this.ormRepository
+			.createQueryBuilder()
+			.where({
+				user_bet_id: user_id,
+			})
+			.orderBy({
+				date: 'DESC',
+			});
 
 		return bets;
 	}

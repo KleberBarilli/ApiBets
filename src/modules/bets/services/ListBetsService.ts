@@ -2,6 +2,8 @@ import { inject, injectable } from 'tsyringe';
 import BetsRepository from '../infra/typeorm/repositories/BetsRepository';
 import RedisCache from '@shared/cache/RedisCache';
 import { IPaginateBet } from '@modules/bets/domain/models/IPaginateBet';
+import Bet from '../infra/typeorm/entities/Bet';
+import { IBet } from '../domain/models/IBet';
 
 @injectable()
 export default class ListBetsService {
@@ -10,16 +12,18 @@ export default class ListBetsService {
 	) {}
 
 	async execute(user_id: string): Promise<IPaginateBet | null> {
-		let bets = await RedisCache.recover<IPaginateBet>(
+		//const bets = await this.betsRepository.findAllPaginate(user_id);
+
+		let listBets = await RedisCache.recover<IPaginateBet>(
 			`user-bets-${user_id}`,
 		);
 
-		if (!bets) {
-			const bets = await this.betsRepository.findAllPaginate(user_id);
+		if (!listBets) {
+			listBets = await this.betsRepository.findAllPaginate(user_id);
 
-			await RedisCache.save(`user-bets-${user_id}`, bets);
+			await RedisCache.save(`user-bets-${user_id}`, listBets);
 		}
 
-		return bets;
+		return listBets;
 	}
 }
