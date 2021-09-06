@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateBets1630522676037 implements MigrationInterface {
+export class CreateBets1630906284795 implements MigrationInterface {
 	public async up(queryRunner: QueryRunner): Promise<void> {
 		await queryRunner.createTable(
 			new Table({
@@ -100,6 +100,12 @@ export class CreateBets1630522676037 implements MigrationInterface {
 						referencedColumnNames: ['id'],
 						columnNames: ['user_bet_id'],
 						onDelete: 'CASCADE',
+					},
+					{
+						name: 'FKLeague',
+						referencedTableName: 'leagues',
+						referencedColumnNames: ['league_icon'],
+						columnNames: ['league_icon'],
 					},
 				],
 			}),

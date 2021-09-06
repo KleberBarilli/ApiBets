@@ -9,7 +9,6 @@ export class CreateLeagues1630894356355 implements MigrationInterface {
 					{
 						name: 'id',
 						type: 'int',
-						isPrimary: true,
 						isGenerated: true,
 						generationStrategy: 'increment',
 					},
@@ -20,6 +19,7 @@ export class CreateLeagues1630894356355 implements MigrationInterface {
 					{
 						name: 'league_icon',
 						type: 'varchar',
+						isPrimary: true,
 					},
 					{
 						name: 'country',

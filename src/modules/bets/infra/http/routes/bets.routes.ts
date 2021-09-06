@@ -45,6 +45,8 @@ betsRouter.post(
 			result: Joi.number(),
 			notes: Joi.string(),
 			date: Joi.date(),
+			league: Joi.string(),
+			league_icon: Joi.string(),
 		},
 	}),
 	betsController.create,

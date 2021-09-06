@@ -1,4 +1,5 @@
 import User from '../../../../users/infra/typeorm/entities/User';
+import { Exclude, Expose } from 'class-transformer';
 import {
 	Entity,
 	PrimaryGeneratedColumn,
@@ -8,7 +9,9 @@ import {
 	JoinColumn,
 	ManyToOne,
 	Generated,
+	OneToOne,
 } from 'typeorm';
+import League from '../../../../leagues/infra/typeorm/entities/League';
 
 @Entity('bets')
 export default class Bet {
@@ -70,4 +73,12 @@ export default class Bet {
 
 	@UpdateDateColumn()
 	updated_at: Date;
+
+	@Expose({ name: 'league_icon' })
+	getLeagueUrl(): string | null {
+		if (this.league_icon) {
+			return null;
+		}
+		return this.league_icon;
+	}
 }
