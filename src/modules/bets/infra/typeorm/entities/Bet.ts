@@ -39,6 +39,12 @@ export default class Bet {
 	odd: number;
 
 	@Column()
+	league: string;
+
+	@Column()
+	league_icon: string;
+
+	@Column()
 	sport: string;
 
 	@Column()

@@ -18,6 +18,8 @@ export default class UpdateBetService {
 		bet,
 		stake,
 		odd,
+		league,
+		league_icon,
 		sport,
 		tag,
 		tipster,
@@ -40,6 +42,8 @@ export default class UpdateBetService {
 		wager.bet = bet;
 		wager.stake = stake;
 		wager.odd = odd;
+		wager.league = league;
+		wager.league_icon = league_icon;
 		wager.sport = sport;
 		wager.tag = tag;
 		wager.tipster = tipster;

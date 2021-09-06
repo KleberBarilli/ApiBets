@@ -6,6 +6,7 @@ import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 import authConfig from '@config/auth';
 import { ICreateSession } from '../domain/models/ICreateSession';
 import { IUserAuthenticated } from '../domain/models/IUserAuthenticated';
+import S3StorageProvider from '@shared/providers/StorageProvider/S3StorageProvider';
 
 @injectable()
 export default class CreateSessionsService {
@@ -18,6 +19,10 @@ export default class CreateSessionsService {
 		password,
 	}: ICreateSession): Promise<IUserAuthenticated> {
 		const user = await this.usersRepository.findByEmail(email);
+
+		const s3 = new S3StorageProvider();
+
+		s3.getFile();
 
 		if (!user) {
 			throw new AppError('Incorret email/password', 401);

@@ -38,24 +38,34 @@ export class CreateBets1630522676037 implements MigrationInterface {
 						type: 'float',
 					},
 					{
+						name: 'league',
+						type: 'varchar',
+						isNullable: true,
+					},
+					{
+						name: 'league_icon',
+						type: 'varchar',
+						isNullable: true,
+					},
+					{
 						name: 'sport',
 						type: 'varchar',
-						default: null,
+						isNullable: true,
 					},
 					{
 						name: 'tag',
 						type: 'varchar',
-						default: null,
+						isNullable: true,
 					},
 					{
 						name: 'tipster',
 						type: 'varchar',
-						default: null,
+						isNullable: true,
 					},
 					{
 						name: 'status',
 						type: 'varchar',
-						default: null,
+						default: 'PENDING',
 					},
 					{
 						name: 'result',
@@ -65,7 +75,7 @@ export class CreateBets1630522676037 implements MigrationInterface {
 					{
 						name: 'notes',
 						type: 'text',
-						default: null,
+						isNullable: true,
 					},
 					{
 						name: 'date',

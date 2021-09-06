@@ -34,17 +34,10 @@ export default class BetsRepository implements IBetsRepository {
 		return bet as IPaginateBet;
 	}
 
-	public async findAll(id: string): Promise<any | null> {
-		const bet = await this.ormRepository
-			.createQueryBuilder()
-			.where({
-				user_bet_id: id,
-			})
-			.orderBy({
-				date: 'DESC',
-			});
+	public async findAll(): Promise<any | null> {
+		const bets = await this.ormRepository.find();
 
-		return bet;
+		return bets;
 	}
 
 	public async create({
@@ -54,6 +47,8 @@ export default class BetsRepository implements IBetsRepository {
 		bet,
 		stake,
 		odd,
+		league,
+		league_icon,
 		sport,
 		tag,
 		tipster,
@@ -69,6 +64,8 @@ export default class BetsRepository implements IBetsRepository {
 			bet,
 			stake,
 			odd,
+			league,
+			league_icon,
 			sport,
 			tag,
 			tipster,
