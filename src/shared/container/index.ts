@@ -8,6 +8,8 @@ import BetsRepository from '@modules/bets/infra/typeorm/repositories/BetsReposit
 import { ILeaguesRepository } from '@modules/leagues/domain/repositories/ILeaguesRepository';
 import LeaguesRepository from '@modules/leagues/infra/typeorm/repositories/LeaguesRepository';
 
+import '@modules/users/providers';
+
 container.registerSingleton<IUsersRepository>(
 	'UsersRepository',
 	UsersRepository,
