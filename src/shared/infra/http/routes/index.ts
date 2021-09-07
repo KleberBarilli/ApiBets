@@ -5,6 +5,7 @@ import { Router } from 'express';
 import passwordRouter from '@modules/users/infra/http/routes/password.routes';
 import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 import leaguesRouter from '@modules/leagues/infra/http/routes/leagues.routes';
+import userStatsRouter from '@modules/userstats/http/routes/userstats.routes';
 
 const routes = Router();
 
@@ -14,5 +15,5 @@ routes.use('/sessions', sessionsRouter);
 routes.use('/password', passwordRouter);
 routes.use('/profile', profileRouter);
 routes.use('/leagues', leaguesRouter);
-
+routes.use('/user-stats', userStatsRouter);
 export default routes;

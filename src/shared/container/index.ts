@@ -10,6 +10,9 @@ import LeaguesRepository from '@modules/leagues/infra/typeorm/repositories/Leagu
 
 import '@modules/users/providers';
 
+import { IUserStatsRepository } from '@modules/userstats/domain/repositories/IUserStatsRepositories';
+import UsersStatsRepository from '@modules/userstats/infra/typeorm/repositories/UserStatsRepository';
+
 container.registerSingleton<IUsersRepository>(
 	'UsersRepository',
 	UsersRepository,
@@ -25,4 +28,9 @@ container.registerSingleton<IBetsRepository>('BetsRepository', BetsRepository);
 container.registerSingleton<ILeaguesRepository>(
 	'LeaguesRepository',
 	LeaguesRepository,
+);
+
+container.registerSingleton<IUserStatsRepository>(
+	'UserStatsRepository',
+	UsersStatsRepository,
 );
